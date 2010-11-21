@@ -46,7 +46,7 @@
 
     <target name="test" depends="compile-tests">
         <echo message="Run Tests..." />
-        <mkdir dir="${build.test.reports}"/>
+        <mkdir dir="${build.test.reports}" />
         <junit haltonfailure="true" haltonerror="true" printsummary="true">
             <classpath>
                 <path refid="classpath.test" />
@@ -76,22 +76,37 @@
     </target>
 
     <target name="stop-tomcat">
-        <echo message="Stop Tomcat Server"></echo>
-        <exec executable="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh"></exec>
+        <echo message="Stop Tomcat Server">
+        </echo>
+        <exec executable="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh">
+        </exec>
+        <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
+            <not>
+                <http url="http://localhost:8080/task" />
+            </not>
+        </waitfor>
     </target>
 
     <target name="start-tomcat">
-        <echo message="Start Tomcat Server"></echo>
-        <exec executable="/home/tux/workspace/task-management-tomcat/bin/startup.sh"></exec>
+        <echo message="Start Tomcat Server">
+        </echo>
+        <exec executable="/home/tux/workspace/task-management-tomcat/bin/startup.sh">
+        </exec>
+        <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
+            <http url="http://localhost:8080/task" />
+        </waitfor>
     </target>
 
     <target name="deploy-webapp" depends="war">
-        <echo message="Deploy Webapp to Server"></echo>
-        <copy file="${build.directory}/task.war" tofile="/home/tux/workspace/task-management-tomcat/webapps/task.war"></copy>
+        <echo message="Deploy Webapp to Server">
+        </echo>
+        <copy file="${build.directory}/task.war" tofile="/home/tux/workspace/task-management-tomcat/webapps/task.war">
+        </copy>
     </target>
 
     <target name="smoke-test">
-        <echo message="Run Smoke Tests"></echo>
+        <echo message="Run Smoke Tests">
+        </echo>
     </target>
 
     <target name="deploy" depends="deploy-webapp,stop-tomcat, start-tomcat, smoke-test">
