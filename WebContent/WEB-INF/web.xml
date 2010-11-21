@@ -7,4 +7,15 @@
   <welcome-file-list>
     <welcome-file>TaskOverviewPage.html</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>monitor</servlet-name>
+    <servlet-class>task.web.MonitorServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>monitor</servlet-name>
+    <url-pattern>/monitor</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
