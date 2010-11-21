@@ -72,7 +72,7 @@
         <copy todir="${build.main.war.directory}/WEB-INF/lib">
             <fileset dir="${build.libraries}/runtime" includes="**/*.jar" />
         </copy>
-        <jar jarfile="${build.directory}/${project.name}.war" basedir="${build.main.war.directory}" />
+        <jar jarfile="${build.directory}/task.war" basedir="${build.main.war.directory}" />
     </target>
 
 </project>
