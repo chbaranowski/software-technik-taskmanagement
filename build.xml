@@ -78,7 +78,8 @@
     <target name="stop-tomcat">
         <echo message="Stop Tomcat Server">
         </echo>
-        <exec executable="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh">
+        <exec executable="bash">
+            <arg value="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh"/>
         </exec>
         <waitfor maxwait="5" maxwaitunit="minute" checkevery="500" checkeveryunit="millisecond" timeoutproperty="noserverfound">
             <not>
@@ -90,7 +91,8 @@
     <target name="start-tomcat">
         <echo message="Start Tomcat Server">
         </echo>
-        <exec executable="/home/tux/workspace/task-management-tomcat/bin/startup.sh">
+        <exec executable="bash">
+           <arg value="/home/tux/workspace/task-management-tomcat/bin/startup.sh"/>
         </exec>
         <waitfor maxwait="5" maxwaitunit="minute" checkevery="500" checkeveryunit="millisecond" timeoutproperty="noserverfound">
             <socket port="8080" server="localhost" />
