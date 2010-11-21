@@ -74,11 +74,23 @@
         </copy>
         <jar jarfile="${build.directory}/task.war" basedir="${build.main.war.directory}" />
     </target>
-    
-    <target name="deploy" depends="war">
+
+    <target name="stop-tomcat">
         <exec executable="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh"></exec>
-        <copy file="${build.directory}/task.war" tofile="/home/tux/workspace/task-management-tomcat/webapps/task.war"></copy>
+    </target>
+
+    <target name="start-tomcat">
         <exec executable="/home/tux/workspace/task-management-tomcat/bin/startup.sh"></exec>
+    </target>
+
+    <target name="deploy-webapp" depends="war">
+        <copy file="${build.directory}/task.war" tofile="/home/tux/workspace/task-management-tomcat/webapps/task.war"></copy>
+    </target>
+
+    <target name="smoke-test">
+    </target>
+
+    <target name="deploy" depends="stop-tomcat, deploy-webapp, start-tomcat, smoke-test">
     </target>
 
 </project>
