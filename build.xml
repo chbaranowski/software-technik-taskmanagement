@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="${project.name}" default="war" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <property file="build.properties" />
+
+    <path id="classpath.runtime">
+        <fileset dir="${build.libraries}/runtime">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <path id="classpath.compile">
+        <path refid="classpath.runtime" />
+        <fileset dir="${build.libraries}/compile">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <path id="classpath.test">
+        <path refid="classpath.compile" />
+        <fileset dir="${build.libraries}/test">
+            <include name="**/*.jar" />
+        </fileset>
+        <pathelement path="${build.main.classes}" />
+    </path>
+
+    <target name="clean">
+        <delete dir="target" />
+    </target>
+
+    <target name="compile" depends="clean">
+        <echo message="Compile Java Source..." />
+        <mkdir dir="${build.main.classes}" />
+        <javac srcdir="${build.src.main.java}" destdir="${build.main.classes}" debug="true" includes="**/*.java" source="1.6">
+            <classpath refid="classpath.compile" />
+        </javac>
+    </target>
+
+    <target name="compile-tests" depends="compile">
+        <echo message="Compile Tests..." />
+        <mkdir dir="${build.test.classes}" />
+        <javac srcdir="${build.src.test.java}" destdir="${build.test.classes}" debug="true" includes="**/*.java" source="1.6">
+            <classpath refid="classpath.test" />
+        </javac>
+    </target>
+
+    <target name="test" depends="compile-tests">
+        <echo message="Run Tests..." />
+        <junit>
+            <classpath>
+                <path refid="classpath.test" />
+                <pathelement path="${build.test.classes}" />
+            </classpath>
+            <formatter type="brief" usefile="false" />
+            <batchtest>
+                <fileset dir="${build.test.classes}" includes="**/*Test.class" />
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="war" depends="compile">
+        <echo message="Package WAR (Web Archiv)..." />
+        <mkdir dir="${build.main.war.directory}" />
+        <copy todir="${build.main.war.directory}/">
+            <fileset dir="${build.src.main.webapp}" includes="**/*.*" />
+        </copy>
+        <mkdir dir="${build.main.war.directory}/WEB-INF/classes" />
+        <copy todir="${build.main.war.directory}/WEB-INF/classes">
+            <fileset dir="${build.main.classes}" includes="**/*.class" />
+        </copy>
+        <copy todir="${build.main.war.directory}/WEB-INF/lib">
+            <fileset dir="${build.libraries}/runtime" includes="**/*.jar" />
+        </copy>
+        <jar jarfile="${build.directory}/${project.name}.war" basedir="${build.main.war.directory}" />
+    </target>
+
+</project>
