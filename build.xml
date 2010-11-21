@@ -80,9 +80,9 @@
         </echo>
         <exec executable="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh">
         </exec>
-        <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
+        <waitfor maxwait="5" maxwaitunit="minute" checkevery="500" checkeveryunit="millisecond" timeoutproperty="noserverfound">
             <not>
-                <http url="http://localhost:8080/task" />
+                <socket port="8080" server="localhost" />
             </not>
         </waitfor>
     </target>
@@ -92,8 +92,8 @@
         </echo>
         <exec executable="/home/tux/workspace/task-management-tomcat/bin/startup.sh">
         </exec>
-        <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
-            <http url="http://localhost:8080/task" />
+        <waitfor maxwait="5" maxwaitunit="minute" checkevery="500" checkeveryunit="millisecond" timeoutproperty="noserverfound">
+            <socket port="8080" server="localhost" />
         </waitfor>
     </target>
 
