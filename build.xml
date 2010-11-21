@@ -59,7 +59,7 @@
         </junit>
     </target>
 
-    <target name="war" depends="compile-tests">
+    <target name="war" depends="test">
         <echo message="Package WAR (Web Archiv)..." />
         <mkdir dir="${build.main.war.directory}" />
         <copy todir="${build.main.war.directory}/">
