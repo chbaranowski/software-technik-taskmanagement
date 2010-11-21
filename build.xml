@@ -76,21 +76,25 @@
     </target>
 
     <target name="stop-tomcat">
+        <echo message="Stop Tomcat Server"></echo>
         <exec executable="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh"></exec>
     </target>
 
     <target name="start-tomcat">
+        <echo message="Start Tomcat Server"></echo>
         <exec executable="/home/tux/workspace/task-management-tomcat/bin/startup.sh"></exec>
     </target>
 
     <target name="deploy-webapp" depends="war">
+        <echo message="Deploy Webapp to Server"></echo>
         <copy file="${build.directory}/task.war" tofile="/home/tux/workspace/task-management-tomcat/webapps/task.war"></copy>
     </target>
 
     <target name="smoke-test">
+        <echo message="Run Smoke Tests"></echo>
     </target>
 
-    <target name="deploy" depends="stop-tomcat, deploy-webapp, start-tomcat, smoke-test">
+    <target name="deploy" depends="deploy-webapp,stop-tomcat, start-tomcat, smoke-test">
     </target>
 
 </project>
