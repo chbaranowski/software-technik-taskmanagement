@@ -77,6 +77,8 @@
     
     <target name="deploy" depends="war">
         <exec executable="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh"></exec>
+        <copy file="${build.directory}/task.war" tofile="/home/tux/workspace/task-management-tomcat/webapps/task.war"></copy>
+        <exec executable="/home/tux/workspace/task-management-tomcat/bin/startup.sh"></exec>
     </target>
 
 </project>
