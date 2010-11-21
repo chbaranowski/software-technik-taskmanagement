@@ -5,7 +5,7 @@
   id="WebApp_ID" version="2.5">
   <display-name>tasks</display-name>
   <welcome-file-list>
-    <welcome-file>TaskOverviewPage.html</welcome-file>
+    <welcome-file>Login.html</welcome-file>
   </welcome-file-list>
   
   <servlet>
