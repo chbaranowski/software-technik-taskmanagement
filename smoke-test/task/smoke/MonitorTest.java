@@ -17,6 +17,7 @@ public class MonitorTest {
 	@Test
 	public void testMonitorOk() throws Exception {
 		HttpClient httpClient = new HttpClient();
+		System.out.println("URL :" + url);
 		GetMethod request = new GetMethod(url);
 		httpClient.executeMethod(request);
 		String html = request.getResponseBodyAsString();
