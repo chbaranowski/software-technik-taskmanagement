@@ -34,12 +34,23 @@
         <javac srcdir="${build.src.main.java}" destdir="${build.main.classes}" debug="true" includes="**/*.java" source="1.6">
             <classpath refid="classpath.compile" />
         </javac>
+        <copy todir="${build.main.classes}">
+            <fileset dir="${build.src.main.java}" excludes="**/*.java" />
+        </copy>
     </target>
 
     <target name="compile-tests" depends="compile">
         <echo message="Compile Tests..." />
         <mkdir dir="${build.test.classes}" />
         <javac srcdir="${build.src.test.java}" destdir="${build.test.classes}" debug="true" includes="**/*.java" source="1.6">
+            <classpath refid="classpath.test" />
+        </javac>
+    </target>
+
+    <target name="compile-smoke-tests" depends="compile">
+        <echo message="Compile Smoke Tests..." />
+        <mkdir dir="${build.smoketest.classes}" />
+        <javac srcdir="${build.src.smoketest.java}" destdir="${build.smoketest.classes}" debug="true" includes="**/*.java" source="1.6">
             <classpath refid="classpath.test" />
         </javac>
     </target>
@@ -78,7 +89,7 @@
     <target name="stop-tomcat">
         <echo message="Stop Tomcat Server">
         </echo>
-        <sshexec host="localhost" username="tux" password="test" command="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh"/>
+        <sshexec host="localhost" username="tux" password="test" command="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh" />
         <waitfor maxwait="5" maxwaitunit="minute" checkevery="500" checkeveryunit="millisecond" timeoutproperty="noserverfound">
             <not>
                 <socket port="8080" server="localhost" />
@@ -89,7 +100,7 @@
     <target name="start-tomcat">
         <echo message="Start Tomcat Server">
         </echo>
-        <sshexec host="localhost" username="tux" password="test" command="/home/tux/workspace/task-management-tomcat/bin/startup.sh"/>
+        <sshexec host="localhost" username="tux" password="test" command="/home/tux/workspace/task-management-tomcat/bin/startup.sh" />
         <waitfor maxwait="5" maxwaitunit="minute" checkevery="500" checkeveryunit="millisecond" timeoutproperty="noserverfound">
             <socket port="8080" server="localhost" />
         </waitfor>
@@ -102,9 +113,20 @@
         </copy>
     </target>
 
-    <target name="smoke-test">
+    <target name="smoke-test" depends="compile-smoke-tests">
         <echo message="Run Smoke Tests">
         </echo>
+        <mkdir dir="${build.test.reports}" />
+        <junit haltonfailure="true" haltonerror="true" printsummary="true">
+            <classpath>
+                <path refid="classpath.test" />
+                <pathelement path="${build.smoketest.classes}" />
+            </classpath>
+            <formatter type="xml" />
+            <batchtest todir="${build.test.reports}">
+                <fileset dir="${build.smoketest.classes}" includes="**/*Test.class" />
+            </batchtest>
+        </junit>
     </target>
 
     <target name="deploy" depends="deploy-webapp,stop-tomcat, start-tomcat, smoke-test">
