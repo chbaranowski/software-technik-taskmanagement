@@ -74,5 +74,9 @@
         </copy>
         <jar jarfile="${build.directory}/task.war" basedir="${build.main.war.directory}" />
     </target>
+    
+    <target name="deploy" depends="war">
+        <exec executable="/home/tux/workspace/task-management-tomcat/bin/shutdown.sh"></exec>
+    </target>
 
 </project>
