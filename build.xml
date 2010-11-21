@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="${project.name}" default="war" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="Task Management" default="war" basedir=".">
 
     <property file="build.properties" />
 
@@ -46,19 +46,20 @@
 
     <target name="test" depends="compile-tests">
         <echo message="Run Tests..." />
-        <junit>
+        <mkdir dir="${build.test.reports}"/>
+        <junit haltonfailure="true" haltonerror="true" printsummary="true">
             <classpath>
                 <path refid="classpath.test" />
                 <pathelement path="${build.test.classes}" />
             </classpath>
-            <formatter type="brief" usefile="false" />
-            <batchtest>
+            <formatter type="xml" />
+            <batchtest todir="${build.test.reports}">
                 <fileset dir="${build.test.classes}" includes="**/*Test.class" />
             </batchtest>
         </junit>
     </target>
 
-    <target name="war" depends="compile">
+    <target name="war" depends="compile-tests">
         <echo message="Package WAR (Web Archiv)..." />
         <mkdir dir="${build.main.war.directory}" />
         <copy todir="${build.main.war.directory}/">
