@@ -55,14 +55,6 @@
         </javac>
     </target>
 
-    <target name="compile-uat-tests" depends="compile">
-        <echo message="Compile UAT Tests..." />
-        <mkdir dir="${build.uattest.classes}" />
-        <javac srcdir="${build.src.uattest.java}" destdir="${build.uattest.classes}" debug="true" includes="**/*.java" source="1.6">
-            <classpath refid="classpath.test" />
-        </javac>
-    </target>
-
     <target name="test" depends="compile-tests">
         <echo message="Run Tests..." />
         <mkdir dir="${build.test.reports}" />
@@ -147,22 +139,6 @@
     </target>
 
     <target name="deploy" depends="deploy-webapp, restart-tomcat, smoke-test, deploy-to-uat, restart-tomcat">
-    </target>
-
-    <target name="uat-test" depends="compile-uat-tests">
-        <echo message="Run UAT Tests">
-        </echo>
-        <mkdir dir="${build.test.reports}" />
-        <junit haltonfailure="true" haltonerror="true" printsummary="true">
-            <classpath>
-                <path refid="classpath.test" />
-                <pathelement path="${build.uattest.classes}" />
-            </classpath>
-            <formatter type="xml" />
-            <batchtest todir="${build.test.reports}">
-                <fileset dir="${build.uattest.classes}" includes="**/*Test.class" />
-            </batchtest>
-        </junit>
     </target>
 
 </project>
