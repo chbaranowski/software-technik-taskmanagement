@@ -6,7 +6,6 @@ public class LoginTest {
 	
 	@Test
 	public void testLogin() throws Exception {
-		
 	}
 
 }

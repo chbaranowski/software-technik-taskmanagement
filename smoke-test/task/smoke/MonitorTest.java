@@ -11,8 +11,7 @@ import task.config.ConfigurationUtil;
 
 public class MonitorTest {
 
-	String url = "http://localhost:" + ConfigurationUtil.getProperty("port")
-			+ "/task/monitor";
+	String url = ConfigurationUtil.getProperty("URL") + "/monitor";
 
 	@Test
 	public void testMonitorOk() throws Exception {
