@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/smoke-test"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/uat-test"/>
         <property name="context-root" value="task"/>
         <property name="java-output-path" value="/SOTE-Task/bin"/>
     </wb-module>
