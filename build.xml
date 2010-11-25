@@ -78,7 +78,7 @@
         </copy>
         <mkdir dir="${build.main.war.directory}/WEB-INF/classes" />
         <copy todir="${build.main.war.directory}/WEB-INF/classes">
-            <fileset dir="${build.main.classes}" includes="**/*.class" />
+            <fileset dir="${build.main.classes}" includes="**/*.*" />
         </copy>
         <copy todir="${build.main.war.directory}/WEB-INF/lib">
             <fileset dir="${build.libraries}/runtime" includes="**/*.jar" />
