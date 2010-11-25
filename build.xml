@@ -105,13 +105,17 @@
             <socket port="8080" server="localhost" />
         </waitfor>
     </target>
-    
+
     <target name="restart-tomcat" depends="stop-tomcat, start-tomcat">
     </target>
 
     <target name="deploy-webapp" depends="war">
         <echo message="Deploy Webapp to Server">
         </echo>
+        <delete file="/home/tux/workspace/task-management-tomcat/webapps/task-trunk.war">
+        </delete>
+        <delete dir="/home/tux/workspace/task-management-tomcat/webapps/task-trunk">
+        </delete>
         <copy file="${build.directory}/task.war" tofile="/home/tux/workspace/task-management-tomcat/webapps/task-trunk.war">
         </copy>
     </target>
@@ -133,7 +137,12 @@
     </target>
 
     <target name="deploy-to-uat">
-        <echo message="Deploy Webapp to UAT Server"></echo>
+        <echo message="Deploy Webapp to UAT Server">
+        </echo>
+        <delete file="/home/tux/workspace/task-management-tomcat/webapps/task.war">
+        </delete>
+        <delete dir="/home/tux/workspace/task-management-tomcat/webapps/task">
+        </delete>
         <copy file="${build.directory}/task.war" tofile="/home/tux/workspace/task-management-tomcat/webapps/task.war">
         </copy>
     </target>
