@@ -27,7 +27,7 @@ class TaskFacadeImpl implements TaskFacade {
 	private TaskService taskService = DomainFactory.instance.createTaskService();
 
 	public void createTask(Task task) {
-		taskService.createTask(task);
+		taskRepository.insertTask(task);
 	}
 
 	public void createBatchTasks(Collection<Task> tasks) {
@@ -42,12 +42,12 @@ class TaskFacadeImpl implements TaskFacade {
 		taskRepository.deleteTask(task);
 	}
 
-	public Task findTaskById(int id) {
-		return taskRepository.findTaskById(id);
+	public Task findTaskById(User user, int id) {
+		return taskRepository.findTaskById(user, id);
 	}
 
-	public Collection<Task> findAllTasksForUser(User user, Date olderThenDate) {
-		return taskRepository.findAllTasksForUser(user, olderThenDate);
+	public Collection<Task> findAllTasksForUser(User user) {
+		return taskRepository.findAllTasksForUser(user);
 	}
 
 	public void insertUser(User user) {

@@ -11,7 +11,7 @@ interface TaskRepository {
 	
 	void deleteTask(Task task);
 	
-	Task findTaskById(int id);
+	Task findTaskById(User user, int id);
 	
-	Collection<Task> findAllTasksForUser(User user, Date olderThenDate);
+	Collection<Task> findAllTasksForUser(User user);
 }

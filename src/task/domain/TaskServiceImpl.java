@@ -21,7 +21,7 @@ public class TaskServiceImpl implements TaskService {
 	
 	@Override
 	public void createTask(Task task) {
-		throw new RuntimeException("Not Impl");
+		taskRepository.insertTask(task);
 	}
 
 	@Override

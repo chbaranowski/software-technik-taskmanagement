@@ -1,6 +1,5 @@
 package task.domain;
 
-import java.sql.Date;
 import java.util.Collection;
 
 public interface TaskFacade {
@@ -13,9 +12,9 @@ public interface TaskFacade {
 	
 	void deleteTask(Task task);
 	
-	Task findTaskById(int id);
+	Task findTaskById(User user, int id);
 	
-	Collection<Task> findAllTasksForUser(User user, Date olderThenDate);
+	Collection<Task> findAllTasksForUser(User user);
 	
 	void insertUser(User user);
 	

@@ -7,52 +7,40 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int id;
-
-	/**
-	 * @uml.property name="task"
-	 * @uml.associationEnd multiplicity="(0 -1)" aggregation="shared"
-	 *                     inverse="user:task.domain.Task"
-	 */
-	private Collection<Task> task;
-
 	private String username;
 
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * Getter of the property <tt>task</tt>
-	 * 
-	 * @return Returns the task.
-	 * @uml.property name="task"
-	 */
-	public Collection<Task> getTask() {
-		return task;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getUsername() {
 		return username;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((username == null) ? 0 : username.hashCode());
+		return result;
 	}
 
-	/**
-	 * Setter of the property <tt>task</tt>
-	 * 
-	 * @param task
-	 *            The task to set.
-	 * @uml.property name="task"
-	 */
-	public void setTask(Collection<Task> task) {
-		this.task = task;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
+	
 }

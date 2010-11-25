@@ -2,7 +2,7 @@ package task.domain;
 
 interface DomainFactory {
 	
-	static DomainFactory instance = null;
+	static DomainFactory instance = new DomainFactoryImpl();
 	
 	TaskRepository createTaskRepository();
 	
